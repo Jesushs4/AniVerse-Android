@@ -1,4 +1,4 @@
-package com.example.aniverse.ui.list
+package com.example.aniverse.ui.animeLists
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,10 +12,10 @@ import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
-class AnimeListViewModel @Inject constructor(private val repository: AnimeRepository): ViewModel() {
+class PersonalListViewModel @Inject constructor(private val repository: AnimeRepository): ViewModel() {
 
-    private val _uiState = MutableStateFlow(AnimeListUiState(listOf()))
-    val uiState: StateFlow<AnimeListUiState>
+    private val _uiState = MutableStateFlow(PersonalListUiState(listOf()))
+    val uiState: StateFlow<PersonalListUiState>
         get()=_uiState.asStateFlow()
 
     init {
@@ -27,8 +27,8 @@ class AnimeListViewModel @Inject constructor(private val repository: AnimeReposi
             }
         }
         viewModelScope.launch {
-            repository.anime.collect {
-                _uiState.value = AnimeListUiState(it)
+            repository.lists.collect {
+                _uiState.value = PersonalListUiState(it)
             }
         }
     }

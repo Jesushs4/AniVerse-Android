@@ -12,6 +12,8 @@ class AnimeDBRepository @Inject constructor(private val animeDao: AnimeDao){
 
     val allAnime: Flow<List<AnimeEntity>> = animeDao.getAll()
 
+    val allList: Flow<List<ListEntity>> = animeDao.getAllList()
+
     suspend fun animeDetail(id:Int): Flow<Anime> {
         return animeDao.getAnime(id).map { it.asAnime() }
     }
@@ -19,5 +21,10 @@ class AnimeDBRepository @Inject constructor(private val animeDao: AnimeDao){
     @WorkerThread
     suspend fun insert(listAnimeEntity: List<AnimeEntity>) {
         animeDao.insert(listAnimeEntity)
+    }
+
+    @WorkerThread
+    suspend fun insertList(listListEntity: ListEntity) {
+        animeDao.insertList(listListEntity)
     }
 }

@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
-@Database(entities = [AnimeEntity::class], version = 1)
-abstract class AnimeDatabase(): RoomDatabase() {
-
+@Database(entities = [AnimeEntity::class, ListEntity::class], version = 1)
+abstract class AnimeDatabase : RoomDatabase() {
     abstract fun animeDao(): AnimeDao
 
     companion object {
@@ -26,7 +26,7 @@ abstract class AnimeDatabase(): RoomDatabase() {
         return Room.databaseBuilder(
             context.applicationContext,
             AnimeDatabase::class.java,
-            "animes_db"
+            "anime4_db"
         ).build()
 
     }

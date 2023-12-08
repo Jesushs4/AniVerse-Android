@@ -5,6 +5,7 @@ import com.example.aniverse.data.api.AnimeApiRepository
 import com.example.aniverse.data.api.asEntityModel
 import com.example.aniverse.data.database.AnimeDBRepository
 import com.example.aniverse.data.database.asAnime
+import com.example.aniverse.data.database.asPersonalList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -22,6 +23,14 @@ class AnimeRepository @Inject constructor(
         get() {
             val list = dbRepository.allAnime.map {
                 it.asAnime()
+            }
+            return list
+        }
+
+    val lists: Flow<List<PersonalList>>
+        get() {
+            val list = dbRepository.allList.map {
+                it.asPersonalList()
             }
             return list
         }

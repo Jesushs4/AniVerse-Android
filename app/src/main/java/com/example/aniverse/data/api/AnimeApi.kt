@@ -9,7 +9,10 @@ import javax.inject.Singleton
 
 interface AnimeApi {
     @GET("anime")
-    suspend fun getAll(@Query("limit") limit: Int=20, @Query("offset") offset:Int=0): AnimeListResponse
+    suspend fun getAll( @Query("order_by") orderBy: String = "popularity",
+                        @Query("min_score") minScore: Int = 5,
+                        @Query("limit") limit: Int=20,
+                        @Query("offset") offset:Int=0): AnimeListResponse
 }
 
 @Singleton

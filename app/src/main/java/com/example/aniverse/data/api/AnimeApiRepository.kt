@@ -7,7 +7,7 @@ import javax.inject.Singleton
 @Singleton
 class AnimeApiRepository @Inject constructor(private val service: AnimeService) {
     suspend fun getAll():List<AnimeApiModel> {
-        val list = service.api.getAll(20, 0)
+        val list = service.api.getAll("popularity", 5,20, 0)
         val animeApiModel = list.data.map {
             anime -> AnimeApiModel(
                 anime.mal_id,
