@@ -4,6 +4,8 @@ import android.util.Log
 import com.example.aniverse.data.api.AnimeApiRepository
 import com.example.aniverse.data.api.asEntityModel
 import com.example.aniverse.data.database.AnimeDBRepository
+import com.example.aniverse.data.database.AnimeListEntity
+import com.example.aniverse.data.database.ListEntity
 import com.example.aniverse.data.database.asAnime
 import com.example.aniverse.data.database.asPersonalList
 import kotlinx.coroutines.Dispatchers
@@ -41,6 +43,21 @@ class AnimeRepository @Inject constructor(
             dbRepository.insert(apiAnime.asEntityModel())
         }
     }
+
+    suspend fun insertList(listEntity: ListEntity) = dbRepository.insertList(listEntity)
+
+
+    suspend fun insertAnimeList(animeListEntity: AnimeListEntity) = dbRepository.insertAnimeList(animeListEntity)
+
+
+    suspend fun getAnimeList(id: Int):Flow<List<AnimeListEntity>> {
+        return dbRepository.getAnimeList(id)
+    }
+
+    suspend fun updateListName(id: Int, name: String) = dbRepository.updateListName(id, name)
+
+    suspend fun deleteList(id:Int) = dbRepository.deleteList(id)
+
 
     suspend fun animeDetail(id:Int) = dbRepository.animeDetail(id)
 }

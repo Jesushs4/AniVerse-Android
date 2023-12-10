@@ -13,12 +13,23 @@ import com.example.aniverse.data.repository.PersonalList
 import com.example.aniverse.databinding.AnimeListItemBinding
 import com.example.aniverse.databinding.PersonalListItemBinding
 
-class PersonalListAdapter(private val context: Context):ListAdapter<PersonalList, PersonalListAdapter.PersonalViewHolder>(PersonalDiffCallback) {
+class PersonalListAdapter(private val context: Context,
+                          private val onListClicked: ((PersonalList) -> Unit)? = null,
+                          private val onDeleteClicked: ((Int) -> Unit)? = null,
+                          private val onEditClicked: ((Int) -> Unit)? = null
+                            ):ListAdapter<PersonalList, PersonalListAdapter.PersonalViewHolder>(PersonalDiffCallback) {
 
     inner class PersonalViewHolder(private val binding:PersonalListItemBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(list:PersonalList) {
             binding.listName.text = list.name
             Log.d("hola", list.toString())
+            binding.deleteIcon.setOnClickListener {
+                onDeleteClicked?.invoke(list.id)
+                true
+            }
+            binding.editIcon.setOnClickListener{
+                onEditClicked?.invoke(list.id)
+            }
         }
     }
 
@@ -31,8 +42,11 @@ class PersonalListAdapter(private val context: Context):ListAdapter<PersonalList
         LayoutInflater.from(parent.context),parent,false))
 
     override fun onBindViewHolder(holder: PersonalViewHolder, position: Int) {
-        val anime = getItem(position)
-        holder.bind(anime)
+        val list = getItem(position)
+        holder.bind(list)
+        holder.itemView.setOnClickListener {
+            onListClicked?.invoke(list)
+        }
     }
 
 

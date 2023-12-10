@@ -9,5 +9,18 @@
         android:id="@+id/locationListFragment"
         android:name="com.example.aniverse.ui.animeLists.PersonalListFragment"
         android:label="fragment_personal_list"
-        tools:layout="@layout/fragment_personal_list" />
+        tools:layout="@layout/fragment_personal_list">
+        <action
+            android:id="@+id/action_personalListFragment_to_listDetailFragment"
+            app:destination="@id/listDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/listDetailFragment"
+        android:name="com.example.aniverse.ui.listDetail.ListDetailFragment"
+        android:label="ListDetailFragment">
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

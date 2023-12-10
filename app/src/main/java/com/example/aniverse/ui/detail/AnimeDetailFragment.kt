@@ -20,6 +20,7 @@ import com.example.aniverse.R
 import com.example.aniverse.data.database.AnimeDBRepository
 import com.example.aniverse.data.database.AnimeListEntity
 import com.example.aniverse.data.repository.AnimeList
+import com.example.aniverse.data.repository.AnimeRepository
 import com.example.aniverse.data.repository.PersonalList
 import com.example.aniverse.databinding.AnimeListItemBinding
 import com.example.aniverse.databinding.FragmentAnimeDetailBinding
@@ -37,7 +38,7 @@ import javax.inject.Inject
 class AnimeDetailFragment : Fragment() {
     private val args: AnimeDetailFragmentArgs by navArgs()
     @Inject
-    lateinit var repository: AnimeDBRepository
+    lateinit var repository: AnimeRepository
 
     private var allListEntities: List<PersonalList> = emptyList()
     private lateinit var binding: FragmentAnimeDetailBinding

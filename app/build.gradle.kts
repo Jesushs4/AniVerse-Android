@@ -55,7 +55,7 @@ dependencies {
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    // Coild
+    // Coil
     implementation("io.coil-kt:coil:2.5.0")
     // Room
     implementation("androidx.room:room-runtime:2.6.0")

@@ -2,6 +2,7 @@ package com.example.aniverse.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.ForeignKey
 import com.example.aniverse.data.repository.Anime
 import com.example.aniverse.data.repository.PersonalList
 
@@ -23,7 +24,19 @@ data class ListEntity(
     val name: String,
 )
 
-@Entity(tableName = "animelist")
+@Entity(tableName = "animelist", foreignKeys = [
+    ForeignKey(
+        entity = ListEntity::class,
+        parentColumns = ["id"],
+        childColumns = ["listId"],
+        onDelete = ForeignKey.CASCADE
+    ),
+    ForeignKey(
+        entity = AnimeEntity::class,
+        parentColumns = ["mal_id"],
+        childColumns = ["animeId"],
+    )
+])
 data class AnimeListEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
