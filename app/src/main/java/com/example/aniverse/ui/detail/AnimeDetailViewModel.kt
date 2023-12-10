@@ -3,6 +3,7 @@ package com.example.aniverse.ui.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aniverse.data.repository.AnimeRepository
+import com.example.aniverse.data.repository.PersonalList
 import com.example.aniverse.ui.list.AnimeDetailUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +19,9 @@ class AnimeDetailViewModel @Inject constructor(private val repository: AnimeRepo
     val uiState: StateFlow<AnimeDetailUiState>
         get() = _uiState.asStateFlow()
 
+    private val _listEntities = MutableStateFlow<List<PersonalList>>(emptyList())
+    val listEntities: StateFlow<List<PersonalList>>
+        get() = _listEntities.asStateFlow()
 
     fun fetch(id: Int) {
         viewModelScope.launch {
@@ -31,7 +35,15 @@ class AnimeDetailViewModel @Inject constructor(private val repository: AnimeRepo
                     it.image_url
                 )
             }
+            fetchListNames()
         }
+    }
 
+    fun fetchListNames() {
+        viewModelScope.launch {
+            val lists = repository.lists.collect { listEntities ->
+                _listEntities.value = listEntities
+            }
+        }
     }
 }

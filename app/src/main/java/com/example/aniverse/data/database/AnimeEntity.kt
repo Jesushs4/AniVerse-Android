@@ -23,6 +23,14 @@ data class ListEntity(
     val name: String,
 )
 
+@Entity(tableName = "animelist")
+data class AnimeListEntity(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val listId: Int,
+    val animeId: Int,
+)
+
 fun List<AnimeEntity>.asAnime():List<Anime> {
     return this.map {
         Anime(it.mal_id, it.title, it.status, it.episodes, it.score, it.image_url)

@@ -13,3 +13,9 @@ data class PersonalList(
     val id: Int,
     val name: String
 )
+
+data class AnimeList(
+    val id: Int,
+    val listId: Int,
+    val animeId: Int
+)

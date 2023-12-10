@@ -79,7 +79,6 @@ class PersonalListFragment : Fragment() {
     }
     private fun createList(name: String) {
         val newList = ListEntity(name = name)
-        // Utiliza CoroutineScope para ejecutar en un hilo secundario
         CoroutineScope(Dispatchers.IO).launch {
             repository.insertList(newList)
         }

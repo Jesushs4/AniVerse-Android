@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [AnimeEntity::class, ListEntity::class], version = 1)
+@Database(entities = [AnimeEntity::class, ListEntity::class, AnimeListEntity::class], version = 1)
 abstract class AnimeDatabase : RoomDatabase() {
     abstract fun animeDao(): AnimeDao
 
@@ -26,7 +26,7 @@ abstract class AnimeDatabase : RoomDatabase() {
         return Room.databaseBuilder(
             context.applicationContext,
             AnimeDatabase::class.java,
-            "anime4_db"
+            "anime5_db"
         ).build()
 
     }
