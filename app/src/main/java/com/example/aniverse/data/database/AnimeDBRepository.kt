@@ -47,4 +47,8 @@ class AnimeDBRepository @Inject constructor(private val animeDao: AnimeDao){
 
     @WorkerThread
     suspend fun updateListName(id:Int, name:String) = animeDao.updateListName(id, name)
+
+    //@WorkerThread
+    //suspend fun updateUserScore(id:Int, newScore:Int) = animeDao.updateUserScore(id, newScore)
+
 }

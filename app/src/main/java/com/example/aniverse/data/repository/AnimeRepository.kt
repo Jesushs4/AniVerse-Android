@@ -60,4 +60,6 @@ class AnimeRepository @Inject constructor(
 
 
     suspend fun animeDetail(id:Int) = dbRepository.animeDetail(id)
+
+    //suspend fun updateUserScore(id:Int, newScore:Int) = dbRepository.updateUserScore(id, newScore)
 }

@@ -22,7 +22,6 @@ import com.example.aniverse.data.database.ListEntity
 import com.example.aniverse.data.repository.AnimeRepository
 import com.example.aniverse.databinding.FragmentAnimeListBinding
 import com.example.aniverse.databinding.FragmentPersonalListBinding
-import com.example.aniverse.databinding.PopupFormBinding
 import com.example.aniverse.ui.list.AnimeListAdapter
 import com.example.aniverse.ui.list.AnimeListFragmentDirections
 import com.example.aniverse.ui.list.AnimeListViewModel

@@ -66,6 +66,7 @@ class AnimeDetailFragment : Fragment() {
 
             }
         }
+
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.fetchListNames()
@@ -77,7 +78,6 @@ class AnimeDetailFragment : Fragment() {
                     binding.spinnerLists.adapter = adapter
                 }
             }
-
         }
 
         var selectedListId: Int? = null

@@ -44,6 +44,14 @@ data class AnimeListEntity(
     val animeId: Int,
 )
 
+/*@Entity(tableName = "animeLocal")
+data class AnimeLocalEntity(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val userScore:Int,
+    val animeId: Int
+)*/
+
 fun List<AnimeEntity>.asAnime():List<Anime> {
     return this.map {
         Anime(it.mal_id, it.title, it.status, it.episodes, it.score, it.image_url)

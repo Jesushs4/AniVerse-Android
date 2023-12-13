@@ -1,5 +1,6 @@
 package com.example.aniverse.ui.listDetail
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,7 +26,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ListDetailFragment : Fragment() {
-    private val args: ListDetailFragmentArgs by navArgs()
+        private val args: ListDetailFragmentArgs by navArgs()
     private lateinit var binding: FragmentListDetailBinding
     private val viewModel: ListDetailViewModel by viewModels()
 
@@ -41,20 +42,34 @@ class ListDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = AnimeListAdapter(requireContext()) { anime ->
-            val action = AnimeListFragmentDirections.actionAnimeListFragmentToAnimeDetailFragment(anime.mal_id)
+            val action = ListDetailFragmentDirections.actionListDetailFragmentToAnimeListDetailFragment(anime.mal_id)
             findNavController().navigate(action)
         }
 
         val rv = binding.listDetail
         rv.adapter = adapter
+        var animeNames = ""
+
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.fetchAnimeListByListId(args.id)
                 viewModel.uiState.collect {
                     adapter.submitList(it.anime)
+                    animeNames = it.anime.joinToString(separator = "\n") { it.title }
                 }
             }
         }
+
+        binding.btnShare.setOnClickListener {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, animeNames)
+                type = "text/plain"
+            }
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
+        }
+
         var toolbar = binding.toolbar
 
         (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)

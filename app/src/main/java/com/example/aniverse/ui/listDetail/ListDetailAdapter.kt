@@ -11,13 +11,15 @@ import coil.load
 import com.example.aniverse.data.repository.Anime
 import com.example.aniverse.databinding.AnimeListItemBinding
 
-class ListDetailAdapter(private val context: Context, private val onAnimeClicked: ((Anime) -> Unit)? = null):ListAdapter<Anime, ListDetailAdapter.AnimeViewHolder>(AnimeDiffCallback) {
+class ListDetailAdapter(private val context: Context,
+                        private val onAnimeClicked: ((Anime) -> Unit)? = null,
+                        private val onDeleteClicked: ((Int) -> Unit)? = null
+                        ):ListAdapter<Anime, ListDetailAdapter.AnimeViewHolder>(AnimeDiffCallback) {
 
     inner class AnimeViewHolder(private val binding:AnimeListItemBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(anime:Anime) {
             binding.animeImage.load(anime.image_url)
             binding.animeName.text = anime.title
-            Log.d("hola", anime.toString())
         }
     }
 

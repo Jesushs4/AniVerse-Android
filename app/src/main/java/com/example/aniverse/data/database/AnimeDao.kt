@@ -35,4 +35,7 @@ interface AnimeDao {
 
     @Query("UPDATE lists SET name = :newName WHERE id = :id")
     suspend fun updateListName(id: Int, newName: String)
+
+    /*@Query("UPDATE anime SET user_score = :newScore WHERE mal_id = :id")
+    suspend fun updateUserScore(id: Int, newScore: Int)*/
 }
