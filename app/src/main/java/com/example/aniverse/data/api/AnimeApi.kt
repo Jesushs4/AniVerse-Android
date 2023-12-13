@@ -3,6 +3,7 @@ package com.example.aniverse.data.api
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -13,6 +14,9 @@ interface AnimeApi {
                         @Query("min_score") minScore: Int = 5,
                         @Query("limit") limit: Int=20,
                         @Query("offset") offset:Int=0): AnimeListResponse
+
+    @GET("anime/{id}/themes")
+    suspend fun getAnimeThemes(@Path("id") id: Int):ThemesListResponse
 }
 
 @Singleton

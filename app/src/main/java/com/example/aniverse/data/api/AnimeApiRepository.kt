@@ -20,4 +20,14 @@ class AnimeApiRepository @Inject constructor(private val service: AnimeService) 
         }
         return animeApiModel
     }
+
+    suspend fun getAnimeThemes(id: Int):ThemesApiModel {
+        val themes = service.api.getAnimeThemes(id)
+        val newThemes =
+        ThemesApiModel(
+            themes.data.openings,
+            themes.data.endings)
+
+        return newThemes
+    }
 }

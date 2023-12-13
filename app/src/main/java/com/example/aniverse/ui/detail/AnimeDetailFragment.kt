@@ -1,6 +1,7 @@
 package com.example.aniverse.ui.detail
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -63,7 +64,16 @@ class AnimeDetailFragment : Fragment() {
                     binding.animeImage.load(it.image_url)
                     binding.animeName.text = it.title
                 }
+            }
+        }
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.fetchOpenings(args.id)
+                viewModel.themeList.collect {
+                    binding.openingsText.movementMethod = ScrollingMovementMethod()
+                    binding.openingsText.text = it
+                }
             }
         }
 
@@ -74,26 +84,19 @@ class AnimeDetailFragment : Fragment() {
                     allListEntities = listEntities
                     val listNames = listEntities.map {it.name}
                     val adapter =
-                        ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listNames)
-                    binding.spinnerLists.adapter = adapter
+                        ArrayAdapter(requireContext(), R.layout.dropdown_menu_popup_item, listNames)
+                    val autoCompleteTextView = binding.autoCompleteTextViewLists
+                    autoCompleteTextView.setAdapter(adapter)
                 }
             }
         }
 
         var selectedListId: Int? = null
 
-        binding.spinnerLists.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                selectedListId = allListEntities[position].id
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {}
+        binding.autoCompleteTextViewLists.setOnItemClickListener { parent, view, position, id ->
+            selectedListId = allListEntities[position].id
         }
+
 
         var toolbar = binding.toolbar
 

@@ -2,6 +2,7 @@ package com.example.aniverse.data.repository
 
 import android.util.Log
 import com.example.aniverse.data.api.AnimeApiRepository
+import com.example.aniverse.data.api.ThemesApiModel
 import com.example.aniverse.data.api.asEntityModel
 import com.example.aniverse.data.database.AnimeDBRepository
 import com.example.aniverse.data.database.AnimeListEntity
@@ -10,6 +11,7 @@ import com.example.aniverse.data.database.asAnime
 import com.example.aniverse.data.database.asPersonalList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -42,6 +44,11 @@ class AnimeRepository @Inject constructor(
             val apiAnime = apiRepository.getAll()
             dbRepository.insert(apiAnime.asEntityModel())
         }
+    }
+
+    suspend fun getAnimeThemes(id: Int):Flow<ThemesApiModel>  {
+        val themesApiModel = apiRepository.getAnimeThemes(id)
+        return flowOf(themesApiModel)
     }
 
     suspend fun insertList(listEntity: ListEntity) = dbRepository.insertList(listEntity)

@@ -10,3 +10,8 @@ data class AnimeDetailUiState(
     val score: Double = 0.0,
     val image_url: String = ""
 )
+
+data class ThemeUiState(
+    val openings: List<String> = emptyList(),
+    val endings: List<String> = emptyList()
+)

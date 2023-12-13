@@ -58,9 +58,7 @@ class PersonalListFragment : Fragment() {
             findNavController().navigate(action)
         },
             onDeleteClicked = { listId ->
-                CoroutineScope(Dispatchers.IO).launch {
-                    repository.deleteList(listId)
-                }
+                showDeleteConfirmationDialog(listId)
             },
             onEditClicked = {listId ->
                     showEditDialog(listId)
@@ -101,6 +99,21 @@ class PersonalListFragment : Fragment() {
             .create()
         dialog.show()
     }
+
+    private fun showDeleteConfirmationDialog(listId: Int) {
+        val dialog = AlertDialog.Builder(context)
+            .setTitle("Confirmar eliminación")
+            .setMessage("¿Estás seguro de que quieres borrar esta lista?")
+            .setPositiveButton("Borrar") { dialog, _ ->
+                deleteList(listId)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancelar") { dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+        dialog.show()
+    }
     private fun showCreateDialog() {
         val input = EditText(context).apply {
             inputType = InputType.TYPE_CLASS_TEXT
@@ -133,6 +146,11 @@ class PersonalListFragment : Fragment() {
     private fun editListName(listId:Int, name: String) {
         CoroutineScope(Dispatchers.IO).launch {
             repository.updateListName(listId, name)
+        }
+    }
+    private fun deleteList(listId:Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.deleteList(listId)
         }
     }
 }
