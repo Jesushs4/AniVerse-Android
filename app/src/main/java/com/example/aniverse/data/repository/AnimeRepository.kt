@@ -46,6 +46,7 @@ class AnimeRepository @Inject constructor(
         }
     }
 
+
     suspend fun getAnimeThemes(id: Int):Flow<ThemesApiModel>  {
         val themesApiModel = apiRepository.getAnimeThemes(id)
         return flowOf(themesApiModel)
@@ -67,6 +68,8 @@ class AnimeRepository @Inject constructor(
 
 
     suspend fun animeDetail(id:Int) = dbRepository.animeDetail(id)
+
+    suspend fun deleteAnimeFromList(mal_id: Int) = dbRepository.deleteAnimeFromList(mal_id)
 
     //suspend fun updateUserScore(id:Int, newScore:Int) = dbRepository.updateUserScore(id, newScore)
 }

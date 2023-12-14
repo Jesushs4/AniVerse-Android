@@ -41,12 +41,14 @@ class AnimeDBRepository @Inject constructor(private val animeDao: AnimeDao){
     }
 
     @WorkerThread
-    suspend fun deleteList(id: Int) {
-        animeDao.deleteList(id)
-    }
+    suspend fun deleteList(id: Int) = animeDao.deleteList(id)
+
 
     @WorkerThread
     suspend fun updateListName(id:Int, name:String) = animeDao.updateListName(id, name)
+
+    @WorkerThread
+    suspend fun deleteAnimeFromList(mal_id: Int) = animeDao.deleteAnimeFromList(mal_id)
 
     //@WorkerThread
     //suspend fun updateUserScore(id:Int, newScore:Int) = animeDao.updateUserScore(id, newScore)

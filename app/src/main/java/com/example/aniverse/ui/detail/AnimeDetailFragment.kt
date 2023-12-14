@@ -112,9 +112,7 @@ class AnimeDetailFragment : Fragment() {
                 val newAnimeList = AnimeListEntity(listId = selectedListId!!, animeId = args.id)
                 CoroutineScope(Dispatchers.IO).launch {
                     repository.insertAnimeList(newAnimeList)
-                    Log.d("anime añadido", newAnimeList.toString())
                 }
-                Log.d("HOLA", selectedListId.toString())
             }
         }
 

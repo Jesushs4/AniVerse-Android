@@ -20,13 +20,6 @@ class PersonalListViewModel @Inject constructor(private val repository: AnimeRep
 
     init {
         viewModelScope.launch {
-            try {
-                repository.refreshList()
-            } catch (e:IOException) {
-                _uiState.value = _uiState.value.copy(errorMessage = e.message!!)
-            }
-        }
-        viewModelScope.launch {
             repository.lists.collect {
                 _uiState.value = PersonalListUiState(it)
             }

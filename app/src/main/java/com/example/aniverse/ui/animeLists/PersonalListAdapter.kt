@@ -25,7 +25,6 @@ class PersonalListAdapter(private val context: Context,
             Log.d("hola", list.toString())
             binding.deleteIcon.setOnClickListener {
                 onDeleteClicked?.invoke(list.id)
-                true
             }
             binding.editIcon.setOnClickListener{
                 onEditClicked?.invoke(list.id)

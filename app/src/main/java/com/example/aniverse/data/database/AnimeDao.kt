@@ -36,6 +36,9 @@ interface AnimeDao {
     @Query("UPDATE lists SET name = :newName WHERE id = :id")
     suspend fun updateListName(id: Int, newName: String)
 
+    @Query("DELETE FROM animelist WHERE animeId= :mal_id")
+    suspend fun deleteAnimeFromList(mal_id:Int)
+
     /*@Query("UPDATE anime SET user_score = :newScore WHERE mal_id = :id")
     suspend fun updateUserScore(id: Int, newScore: Int)*/
 }

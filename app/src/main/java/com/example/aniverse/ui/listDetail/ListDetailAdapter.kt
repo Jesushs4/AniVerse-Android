@@ -10,16 +10,20 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.aniverse.data.repository.Anime
 import com.example.aniverse.databinding.AnimeListItemBinding
+import com.example.aniverse.databinding.AnimePersonalListItemBinding
 
 class ListDetailAdapter(private val context: Context,
                         private val onAnimeClicked: ((Anime) -> Unit)? = null,
                         private val onDeleteClicked: ((Int) -> Unit)? = null
                         ):ListAdapter<Anime, ListDetailAdapter.AnimeViewHolder>(AnimeDiffCallback) {
 
-    inner class AnimeViewHolder(private val binding:AnimeListItemBinding):RecyclerView.ViewHolder(binding.root) {
+    inner class AnimeViewHolder(private val binding:AnimePersonalListItemBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(anime:Anime) {
             binding.animeImage.load(anime.image_url)
             binding.animeName.text = anime.title
+            binding.deleteIcon.setOnClickListener {
+                onDeleteClicked?.invoke(anime.mal_id)
+            }
         }
     }
 
@@ -28,7 +32,7 @@ class ListDetailAdapter(private val context: Context,
         override fun areContentsTheSame(oldItem: Anime, newItem: Anime) = oldItem == newItem
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder = AnimeViewHolder(AnimeListItemBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder = AnimeViewHolder(AnimePersonalListItemBinding.inflate(
         LayoutInflater.from(parent.context),parent,false))
 
     override fun onBindViewHolder(holder: AnimeViewHolder, position: Int) {

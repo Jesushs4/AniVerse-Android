@@ -24,10 +24,12 @@ class ListDetailViewModel @Inject constructor(private val repository: AnimeRepos
     fun fetchAnimeListByListId(listId: Int) {
         viewModelScope.launch {
             try {
-                val animeListEntities = repository.getAnimeList(listId).first()
-                Log.d("animelistentities", animeListEntities.toString())
-                val animeEntities = animeListEntities.map { repository.animeDetail(it.animeId).first() }
-                _uiState.value = ListDetailUiState(animeEntities)
+                repository.getAnimeList(listId).collect { animeListEntities ->
+                    val animeEntities = animeListEntities.map {
+                        repository.animeDetail(it.animeId).first()
+                    }
+                    _uiState.value = ListDetailUiState(animeEntities)
+                }
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(errorMessage = e.message ?: "Unknown error")
             }
