@@ -1,9 +1,11 @@
 package com.example.aniverse.data.database
 
+import android.util.Log
 import androidx.annotation.WorkerThread
 import com.example.aniverse.data.repository.Anime
 import com.example.aniverse.data.repository.AnimeList
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -14,6 +16,10 @@ class AnimeDBRepository @Inject constructor(private val animeDao: AnimeDao){
     val allAnime: Flow<List<AnimeEntity>> = animeDao.getAll()
 
     val allList: Flow<List<ListEntity>> = animeDao.getAllList()
+
+    fun getAnimeList(id: Int): Flow<ListWithAnimes> {
+        return animeDao.getAnimeList(id)
+    }
 
     @WorkerThread
     suspend fun animeDetail(id:Int): Flow<Anime> {
@@ -35,10 +41,8 @@ class AnimeDBRepository @Inject constructor(private val animeDao: AnimeDao){
         animeDao.insertAnimeList(animeListEntity)
     }
 
-    @WorkerThread
-    suspend fun getAnimeList(id: Int): Flow<ListWithAnimes> {
-        return animeDao.getAnimeList(id)
-    }
+
+
 
     @WorkerThread
     suspend fun deleteList(id: Int) = animeDao.deleteList(id)

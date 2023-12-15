@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aniverse</string>
+    <string name="anime_details">Detalles del Anime</string>
+    <string name="add_list">Añadir a la lista</string>
+
+</resources>

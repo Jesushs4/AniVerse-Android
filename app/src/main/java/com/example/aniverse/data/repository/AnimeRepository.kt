@@ -59,7 +59,7 @@ class AnimeRepository @Inject constructor(
     suspend fun insertAnimeList(animeListEntity: AnimeListEntity) = dbRepository.insertAnimeList(animeListEntity)
 
 
-    suspend fun getAnimeList(id: Int):Flow<ListWithAnimes> {
+    fun getAnimeList(id: Int):Flow<ListWithAnimes> {
         return dbRepository.getAnimeList(id)
     }
 

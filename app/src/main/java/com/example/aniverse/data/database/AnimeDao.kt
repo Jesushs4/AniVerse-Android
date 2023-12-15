@@ -27,13 +27,13 @@ interface AnimeDao {
     @Query("SELECT * FROM lists")
     fun getAllList(): Flow<List<ListEntity>>
 
-    @Query("SELECT * FROM lists WHERE id= :id")
+    @Query("SELECT * FROM lists WHERE listId= :id")
     fun getAnimeList(id:Int): Flow<ListWithAnimes>
 
-    @Query("DELETE FROM lists WHERE id = :id")
+    @Query("DELETE FROM lists WHERE listId = :id")
     suspend fun deleteList(id: Int)
 
-    @Query("UPDATE lists SET name = :newName WHERE id = :id")
+    @Query("UPDATE lists SET name = :newName WHERE listId = :id")
     suspend fun updateListName(id: Int, newName: String)
 
     @Query("DELETE FROM animelist WHERE mal_id= :id")

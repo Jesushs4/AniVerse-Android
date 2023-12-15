@@ -13,7 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="?attr/colorPrimary"
-        app:title="Anime Details"/>
+        app:title="@string/anime_details"/>
 
 
     <com.google.android.material.card.MaterialCardView
@@ -61,6 +61,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:id="@+id/textField"
                     android:hint="Selecciona una lista"
                     app:layout_constraintTop_toBottomOf="@id/anime_name"
@@ -84,7 +85,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textField"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:text="Añadir a la lista"/>
+                    android:text="@string/add_list"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -98,6 +99,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginBottom="80dp">
 
         <TextView

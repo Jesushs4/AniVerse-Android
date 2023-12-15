@@ -24,14 +24,14 @@ data class AnimeEntity(
 @Entity(tableName = "lists")
 data class ListEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val listId: Int = 0,
     val name: String,
 )
 
 @Entity(tableName = "animelist", foreignKeys = [
     ForeignKey(
         entity = ListEntity::class,
-        parentColumns = ["id"],
+        parentColumns = ["listId"],
         childColumns = ["listId"],
         onDelete = ForeignKey.CASCADE
     ),
@@ -54,7 +54,7 @@ data class AnimeListEntity(
 data class ListWithAnimes(
     @Embedded val list: ListEntity,
     @Relation(
-        parentColumn = "id",
+        parentColumn = "listId",
         entityColumn = "mal_id",
         associateBy = Junction(AnimeListEntity::class)
     )
@@ -77,7 +77,7 @@ fun List<AnimeEntity>.asAnime():List<Anime> {
 
 fun List<ListEntity>.asPersonalList():List<PersonalList> {
     return this.map {
-        PersonalList(it.id, it.name)
+        PersonalList(it.listId, it.name)
     }
 }
 

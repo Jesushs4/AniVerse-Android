@@ -26,7 +26,9 @@ class ListDetailViewModel @Inject constructor(private val repository: AnimeRepos
         viewModelScope.launch {
             try {
                 repository.getAnimeList(listId).collect { animeListEntities ->
+                    Log.d("AnimeEntities", animeListEntities.toString())
                     val animeEntities = animeListEntities.animes.asAnime()
+                    Log.d("All animes", animeEntities.toString())
                     _uiState.value = ListDetailUiState(animeEntities)
                 }
             } catch (e: Exception) {
