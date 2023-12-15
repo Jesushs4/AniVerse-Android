@@ -33,6 +33,18 @@ class AnimeApiRepository @Inject constructor(private val service: AnimeService) 
         return characterApiModel
     }
 
+    suspend fun getCharacters(query:String): List<CharacterApiModel> {
+        val list = service.api.getCharacters("favorites", query, "desc", 20, 0)
+        val characterApiModel = list.data.map {
+                character -> CharacterApiModel(
+            character.mal_id,
+            character.name,
+            character.images.jpg.image_url
+        )
+        }
+        return characterApiModel
+    }
+
     suspend fun getAnimeThemes(id: Int):ThemesApiModel {
         val themes = service.api.getAnimeThemes(id)
         val newThemes =

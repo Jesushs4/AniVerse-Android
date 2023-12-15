@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
@@ -24,6 +25,21 @@ class CharacterListViewModel @Inject constructor(private val repository: AnimeRe
     init {
         viewModelScope.launch {
             repository.getAllCharacters().collect {
+                var characters = it.map {
+                    AnimeCharacter(
+                        it.mal_id,
+                        it.name,
+                        it.images
+                    )
+                }
+                _uiState.value = CharacterListUiState(characters)
+            }
+        }
+    }
+
+    fun searchCharacters(query: String) {
+        viewModelScope.launch {
+            repository.getCharacters(query).collect {
                 var characters = it.map {
                     AnimeCharacter(
                         it.mal_id,

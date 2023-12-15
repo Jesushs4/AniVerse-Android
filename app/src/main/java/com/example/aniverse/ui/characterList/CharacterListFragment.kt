@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -46,5 +47,17 @@ class CharacterListFragment : Fragment() {
                 }
             }
         }
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { viewModel.searchCharacters(it) }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                // Opcional: Búsqueda en tiempo real mientras el usuario escribe
+                return true
+            }
+        })
     }
 }

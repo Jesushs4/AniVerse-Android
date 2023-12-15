@@ -59,6 +59,11 @@ class AnimeRepository @Inject constructor(
         return flowOf(charactersApiModel)
     }
 
+    suspend fun getCharacters(query: String): Flow<List<CharacterApiModel>> {
+        val charactersApiModel = apiRepository.getCharacters(query)
+        return flowOf(charactersApiModel)
+    }
+
     suspend fun insertList(listEntity: ListEntity) = dbRepository.insertList(listEntity)
 
 

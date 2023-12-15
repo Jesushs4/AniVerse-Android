@@ -16,6 +16,12 @@
             android:layout_height="wrap_content"/>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/character_list"
         android:layout_width="match_parent"

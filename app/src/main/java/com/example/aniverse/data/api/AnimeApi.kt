@@ -23,6 +23,13 @@ interface AnimeApi {
                                  @Query("sort") sort: String = "desc",
                                  @Query("limit") limit: Int=20,
                                  @Query("offset") offset:Int=0):CharacterListResponse
+
+    @GET("characters")
+    suspend fun getCharacters(@Query("order_by") orderBy: String = "favorites",
+                              @Query("q") query: String,
+                              @Query("sort") sort: String = "desc",
+                              @Query("limit") limit: Int=20,
+                              @Query("offset") offset:Int=0):CharacterListResponse
 }
 
 @Singleton
