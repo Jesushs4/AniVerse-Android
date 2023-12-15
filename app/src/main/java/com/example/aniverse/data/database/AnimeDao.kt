@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -27,6 +28,8 @@ interface AnimeDao {
     @Query("SELECT * FROM lists")
     fun getAllList(): Flow<List<ListEntity>>
 
+
+    @Transaction
     @Query("SELECT * FROM lists WHERE listId= :id")
     fun getAnimeList(id:Int): Flow<ListWithAnimes>
 

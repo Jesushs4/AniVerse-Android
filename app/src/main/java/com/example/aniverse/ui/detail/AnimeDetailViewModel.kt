@@ -35,15 +35,9 @@ class AnimeDetailViewModel @Inject constructor(private val repository: AnimeRepo
     val listEntities: StateFlow<List<PersonalList>>
         get() = _listEntities.asStateFlow()
 
-
-    private val _insertionResult = MutableStateFlow<String>("")
-    val insertionResult: StateFlow<String>
-        get() = _insertionResult
-
     fun fetch(id: Int) {
         viewModelScope.launch {
             repository.animeDetail(id).collect {
-                Log.d("openingsss", it.toString())
                 _uiState.value = AnimeDetailUiState(
                     it.mal_id,
                     it.title,
@@ -63,7 +57,6 @@ class AnimeDetailViewModel @Inject constructor(private val repository: AnimeRepo
                     opening
                 }
                 _themeList.value = openingsAsString
-                Log.d("THEMELIST", openingsAsString)
             }
         }
     }
@@ -74,21 +67,6 @@ class AnimeDetailViewModel @Inject constructor(private val repository: AnimeRepo
                 _listEntities.value = listEntities
             }
         }
-    }
-
-    fun insertAnimeToList(listId: Int, animeId: Int) {
-        viewModelScope.launch {
-            try {
-                repository.insertAnimeList(AnimeListEntity(listId = listId, mal_id = animeId))
-                _insertionResult.value = ("El anime ha sido añadido a la lista")
-            } catch (e: SQLiteConstraintException) {
-                _insertionResult.value = ("El anime ya se encuentra en la lista")
-            }
-        }
-    }
-
-    fun resetInsertionResult() {
-        _insertionResult.value = ""
     }
 
 }

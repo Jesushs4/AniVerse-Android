@@ -5,4 +5,5 @@
     app:startDestination="@id/anime">
     <include app:graph="@navigation/anime" />
     <include app:graph="@navigation/lists" />
+    <include app:graph="@navigation/characters" />
 </navigation>

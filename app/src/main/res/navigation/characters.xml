@@ -1,0 +1,12 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/characters"
+    app:startDestination="@id/characterListFragment">
+<fragment
+    android:id="@+id/characterListFragment"
+    android:name="com.example.aniverse.ui.characterList.CharacterListFragment"
+    android:label="CharacterListFragment">>
+
+</fragment>
+
+</navigation>

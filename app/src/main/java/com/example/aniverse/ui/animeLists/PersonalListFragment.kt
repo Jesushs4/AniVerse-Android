@@ -16,6 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.example.aniverse.R
 import com.example.aniverse.data.database.AnimeDBRepository
@@ -82,7 +83,6 @@ class PersonalListFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.operationResult.collect { resultMessage ->
                     if (resultMessage.isNotEmpty()) {
-                        Log.d("MENSAJE", resultMessage)
                         Snackbar.make(requireActivity().findViewById(android.R.id.content), resultMessage, Snackbar.LENGTH_LONG).show()
                     }
                 }
@@ -101,14 +101,14 @@ class PersonalListFragment : Fragment() {
         }
 
         val dialog = AlertDialog.Builder(context)
-            .setTitle("Editar nombre")
+            .setTitle(getString(R.string.editList))
             .setView(input)
-            .setPositiveButton("Editar") { dialog, _ ->
+            .setPositiveButton(getString(R.string.edit)) { dialog, _ ->
                 val newName = input.text.toString()
                 viewModel.editListName(listId, newName)
                 dialog.dismiss()
             }
-            .setNegativeButton("Cancelar") { dialog, _ ->
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.cancel()
             }
             .create()
@@ -117,13 +117,13 @@ class PersonalListFragment : Fragment() {
 
     private fun showDeleteConfirmationDialog(listId: Int) {
         val dialog = AlertDialog.Builder(context)
-            .setTitle("Confirmar eliminación")
-            .setMessage("¿Estás seguro de que quieres borrar esta lista?")
-            .setPositiveButton("Borrar") { dialog, _ ->
+            .setTitle(getString(R.string.confirmListDelete))
+            .setMessage(getString(R.string.deleteList))
+            .setPositiveButton(getString(R.string.delete)) { dialog, _ ->
                 viewModel.deleteList(listId)
                 dialog.dismiss()
             }
-            .setNegativeButton("Cancelar") { dialog, _ ->
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.cancel()
             }
             .create()
@@ -139,14 +139,18 @@ class PersonalListFragment : Fragment() {
         }
 
         val dialog = AlertDialog.Builder(context)
-            .setTitle("Crear lista")
+            .setTitle(getString(R.string.createList))
             .setView(input)
-            .setPositiveButton("Crear") { dialog, _ ->
+            .setPositiveButton(getString(R.string.create)) { dialog, _ ->
                 val newName = input.text.toString()
-                viewModel.createList(newName)
+                val newList = ListEntity(name = newName)
+                viewLifecycleOwner.lifecycleScope.launch {
+                    repository.insertList(newList)
+                    Snackbar.make(requireActivity().findViewById(android.R.id.content), "Se ha creado la lista", Snackbar.LENGTH_LONG).show()
+                }
                 dialog.dismiss()
             }
-            .setNegativeButton("Cancelar") { dialog, _ ->
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.cancel()
             }
             .create()

@@ -50,6 +50,28 @@ data class AnimeImageResponse(
     val image_url: String
 )
 
+data class CharacterApiModel(
+    val mal_id: Int,
+    val name:String,
+    val images: String
+)
+
+data class CharacterListResponse(
+    val data: List<CharacterItemResponse>
+)
+data class CharacterItemResponse(
+    val mal_id: Int,
+    val name: String,
+    val images: CharacterJpgResponse
+)
+data class CharacterJpgResponse(
+    val jpg: CharacterImageResponse
+)
+
+data class CharacterImageResponse(
+    val image_url: String
+)
+
 fun List<AnimeApiModel>.asEntityModel(): List<AnimeEntity> {
     return this.map {
         AnimeEntity(

@@ -112,25 +112,21 @@ class AnimeDetailFragment : Fragment() {
 
         binding.buttonAddToList.setOnClickListener {
             selectedListId?.let {
-                viewModel.insertAnimeToList(it, args.id)
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.insertionResult.collect { resultMessage ->
-                    if (resultMessage.isNotEmpty()) {
-                        Snackbar.make(binding.root, resultMessage, Snackbar.LENGTH_LONG).show()
+                viewLifecycleOwner.lifecycleScope.launch {
+                    repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        try {
+                            repository.insertAnimeList(AnimeListEntity(listId = it, mal_id = args.id))
+                            Snackbar.make(binding.root, "El anime ha sido añadido a la lista", Snackbar.LENGTH_LONG).show()
+                        } catch (e: SQLiteConstraintException) {
+                            Snackbar.make(binding.root, "El anime ya se encuentra en la lista", Snackbar.LENGTH_LONG).show()
+                        }
                     }
                 }
             }
         }
+
+
+
+        }
     }
 
-    override fun onStop() {
-        super.onStop()
-        viewModel.resetInsertionResult()
-    }
-
-
-}

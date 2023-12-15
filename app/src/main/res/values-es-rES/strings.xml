@@ -3,5 +3,17 @@
     <string name="app_name">Aniverse</string>
     <string name="anime_details">Detalles del Anime</string>
     <string name="add_list">Añadir a la lista</string>
+    <string name="deleteAnimeTitle">Confirmar</string>
+    <string name="deleteAnime">¿Seguro que quieres borrar el anime de la lista?</string>
+    <string name="deleteAnimeConfirm">Delete</string>
+    <string name="cancel">Cancelar</string>
+    <string name="selectList">Selecciona una lista</string>
+    <string name="createList">Crear lista</string>
+    <string name="create">Crear</string>
+    <string name="confirmListDelete">Borrar lista</string>
+    <string name="delete">Borrar</string>
+    <string name="deleteList">¿Seguro que quieres borrar esta lista?</string>
+    <string name="edit">Editar</string>
+    <string name="editList">Editar lista</string>
 
 </resources>

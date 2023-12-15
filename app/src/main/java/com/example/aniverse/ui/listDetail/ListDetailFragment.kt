@@ -96,13 +96,13 @@ class ListDetailFragment : Fragment() {
 
     private fun showDeleteConfirmationDialog(animeId: Int) {
         val dialog = AlertDialog.Builder(context)
-            .setTitle("Confirmar eliminación")
-            .setMessage("¿Estás seguro de que quieres borrar este anime de la lista?")
-            .setPositiveButton("Borrar") { dialog, _ ->
+            .setTitle(getString(R.string.deleteAnimeTitle))
+            .setMessage(getString(R.string.deleteAnime))
+            .setPositiveButton(getString(R.string.deleteAnimeConfirm)) { dialog, _ ->
                 deleteAnimeFromList(animeId)
                 dialog.dismiss()
             }
-            .setNegativeButton("Cancelar") { dialog, _ ->
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.cancel()
             }
             .create()

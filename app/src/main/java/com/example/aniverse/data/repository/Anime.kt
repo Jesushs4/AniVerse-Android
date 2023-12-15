@@ -9,6 +9,12 @@ data class Anime(
     val image_url: String
 )
 
+data class AnimeCharacter(
+    val mal_id: Int,
+    val name: String,
+    val image_url: String
+)
+
 data class PersonalList(
     val id: Int,
     val name: String

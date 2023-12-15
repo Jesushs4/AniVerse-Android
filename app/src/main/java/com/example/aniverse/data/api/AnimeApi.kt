@@ -17,6 +17,12 @@ interface AnimeApi {
 
     @GET("anime/{id}/themes")
     suspend fun getAnimeThemes(@Path("id") id: Int):ThemesListResponse
+
+    @GET("characters")
+    suspend fun getAllCharacters(@Query("order_by") orderBy: String = "favorites",
+                                 @Query("sort") sort: String = "desc",
+                                 @Query("limit") limit: Int=20,
+                                 @Query("offset") offset:Int=0):CharacterListResponse
 }
 
 @Singleton
