@@ -1,5 +1,6 @@
 package com.example.aniverse.ui.detail
 
+import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
@@ -29,10 +30,12 @@ import com.example.aniverse.databinding.FragmentAnimeListBinding
 import com.example.aniverse.ui.list.AnimeListAdapter
 import com.example.aniverse.ui.list.AnimeListFragmentDirections
 import com.example.aniverse.ui.list.AnimeListViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -108,13 +111,26 @@ class AnimeDetailFragment : Fragment() {
         }
 
         binding.buttonAddToList.setOnClickListener {
-            if (selectedListId != null) {
-                val newAnimeList = AnimeListEntity(listId = selectedListId!!, animeId = args.id)
-                CoroutineScope(Dispatchers.IO).launch {
-                    repository.insertAnimeList(newAnimeList)
-                }
+            selectedListId?.let {
+                viewModel.insertAnimeToList(it, args.id)
             }
         }
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.insertionResult.collect { resultMessage ->
+                    if (resultMessage.isNotEmpty()) {
+                        Snackbar.make(binding.root, resultMessage, Snackbar.LENGTH_LONG).show()
+                    }
+                }
+            }
+        }
     }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.resetInsertionResult()
+    }
+
+
 }

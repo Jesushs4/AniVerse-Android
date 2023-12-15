@@ -7,6 +7,7 @@ import com.example.aniverse.data.api.asEntityModel
 import com.example.aniverse.data.database.AnimeDBRepository
 import com.example.aniverse.data.database.AnimeListEntity
 import com.example.aniverse.data.database.ListEntity
+import com.example.aniverse.data.database.ListWithAnimes
 import com.example.aniverse.data.database.asAnime
 import com.example.aniverse.data.database.asPersonalList
 import kotlinx.coroutines.Dispatchers
@@ -58,7 +59,7 @@ class AnimeRepository @Inject constructor(
     suspend fun insertAnimeList(animeListEntity: AnimeListEntity) = dbRepository.insertAnimeList(animeListEntity)
 
 
-    suspend fun getAnimeList(id: Int):Flow<List<AnimeListEntity>> {
+    suspend fun getAnimeList(id: Int):Flow<ListWithAnimes> {
         return dbRepository.getAnimeList(id)
     }
 

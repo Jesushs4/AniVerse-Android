@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aniverse.data.database.AnimeDBRepository
+import com.example.aniverse.data.database.asAnime
 import com.example.aniverse.data.repository.AnimeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,9 +26,7 @@ class ListDetailViewModel @Inject constructor(private val repository: AnimeRepos
         viewModelScope.launch {
             try {
                 repository.getAnimeList(listId).collect { animeListEntities ->
-                    val animeEntities = animeListEntities.map {
-                        repository.animeDetail(it.animeId).first()
-                    }
+                    val animeEntities = animeListEntities.animes.asAnime()
                     _uiState.value = ListDetailUiState(animeEntities)
                 }
             } catch (e: Exception) {

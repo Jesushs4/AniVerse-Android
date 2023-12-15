@@ -15,7 +15,7 @@ interface AnimeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertList(listListEntity: ListEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertAnimeList(animeListEntity: AnimeListEntity)
 
     @Query("SELECT * FROM anime")
@@ -27,8 +27,8 @@ interface AnimeDao {
     @Query("SELECT * FROM lists")
     fun getAllList(): Flow<List<ListEntity>>
 
-    @Query("SELECT * FROM animelist WHERE listId= :id")
-    fun getAnimeList(id:Int): Flow<List<AnimeListEntity>>
+    @Query("SELECT * FROM lists WHERE id= :id")
+    fun getAnimeList(id:Int): Flow<ListWithAnimes>
 
     @Query("DELETE FROM lists WHERE id = :id")
     suspend fun deleteList(id: Int)
@@ -36,8 +36,8 @@ interface AnimeDao {
     @Query("UPDATE lists SET name = :newName WHERE id = :id")
     suspend fun updateListName(id: Int, newName: String)
 
-    @Query("DELETE FROM animelist WHERE animeId= :mal_id")
-    suspend fun deleteAnimeFromList(mal_id:Int)
+    @Query("DELETE FROM animelist WHERE mal_id= :id")
+    suspend fun deleteAnimeFromList(id:Int)
 
     /*@Query("UPDATE anime SET user_score = :newScore WHERE mal_id = :id")
     suspend fun updateUserScore(id: Int, newScore: Int)*/

@@ -36,7 +36,7 @@ class AnimeDBRepository @Inject constructor(private val animeDao: AnimeDao){
     }
 
     @WorkerThread
-    suspend fun getAnimeList(id: Int): Flow<List<AnimeListEntity>> {
+    suspend fun getAnimeList(id: Int): Flow<ListWithAnimes> {
         return animeDao.getAnimeList(id)
     }
 

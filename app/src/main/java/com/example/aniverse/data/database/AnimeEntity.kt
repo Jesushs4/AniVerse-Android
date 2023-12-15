@@ -1,8 +1,12 @@
 package com.example.aniverse.data.database
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ForeignKey
+import androidx.room.Index
+import androidx.room.Junction
+import androidx.room.Relation
 import com.example.aniverse.data.repository.Anime
 import com.example.aniverse.data.repository.PersonalList
 
@@ -34,14 +38,27 @@ data class ListEntity(
     ForeignKey(
         entity = AnimeEntity::class,
         parentColumns = ["mal_id"],
-        childColumns = ["animeId"],
+        childColumns = ["mal_id"],
     )
-])
+    ],
+    indices = [
+        Index(value = ["listId", "mal_id"], unique = true)
+    ])
 data class AnimeListEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val listId: Int,
-    val animeId: Int,
+    val mal_id: Int,
+)
+
+data class ListWithAnimes(
+    @Embedded val list: ListEntity,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "mal_id",
+        associateBy = Junction(AnimeListEntity::class)
+    )
+    val animes: List<AnimeEntity>
 )
 
 /*@Entity(tableName = "animeLocal")

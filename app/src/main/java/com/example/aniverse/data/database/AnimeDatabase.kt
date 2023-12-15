@@ -26,7 +26,7 @@ abstract class AnimeDatabase : RoomDatabase() {
         return Room.databaseBuilder(
             context.applicationContext,
             AnimeDatabase::class.java,
-            "anime8_db"
+            "anime10_db"
         ).build()
 
     }

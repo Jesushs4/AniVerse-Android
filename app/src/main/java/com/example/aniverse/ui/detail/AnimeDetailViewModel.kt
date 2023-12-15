@@ -1,9 +1,11 @@
 package com.example.aniverse.ui.detail
 
+import android.database.sqlite.SQLiteConstraintException
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aniverse.data.api.ThemesApiModel
+import com.example.aniverse.data.database.AnimeListEntity
 import com.example.aniverse.data.repository.AnimeRepository
 import com.example.aniverse.data.repository.PersonalList
 import com.example.aniverse.ui.list.AnimeDetailUiState
@@ -32,6 +34,11 @@ class AnimeDetailViewModel @Inject constructor(private val repository: AnimeRepo
     private val _listEntities = MutableStateFlow<List<PersonalList>>(emptyList())
     val listEntities: StateFlow<List<PersonalList>>
         get() = _listEntities.asStateFlow()
+
+
+    private val _insertionResult = MutableStateFlow<String>("")
+    val insertionResult: StateFlow<String>
+        get() = _insertionResult
 
     fun fetch(id: Int) {
         viewModelScope.launch {
@@ -63,9 +70,25 @@ class AnimeDetailViewModel @Inject constructor(private val repository: AnimeRepo
 
     fun fetchListNames() {
         viewModelScope.launch {
-            val lists = repository.lists.collect { listEntities ->
+                repository.lists.collect { listEntities ->
                 _listEntities.value = listEntities
             }
         }
     }
+
+    fun insertAnimeToList(listId: Int, animeId: Int) {
+        viewModelScope.launch {
+            try {
+                repository.insertAnimeList(AnimeListEntity(listId = listId, mal_id = animeId))
+                _insertionResult.value = ("El anime ha sido añadido a la lista")
+            } catch (e: SQLiteConstraintException) {
+                _insertionResult.value = ("El anime ya se encuentra en la lista")
+            }
+        }
+    }
+
+    fun resetInsertionResult() {
+        _insertionResult.value = ""
+    }
+
 }

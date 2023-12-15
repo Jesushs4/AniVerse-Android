@@ -3,6 +3,7 @@ package com.example.aniverse.ui.animeLists
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,6 +26,7 @@ import com.example.aniverse.databinding.FragmentPersonalListBinding
 import com.example.aniverse.ui.list.AnimeListAdapter
 import com.example.aniverse.ui.list.AnimeListFragmentDirections
 import com.example.aniverse.ui.list.AnimeListViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -75,6 +77,19 @@ class PersonalListFragment : Fragment() {
                 }
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.operationResult.collect { resultMessage ->
+                    if (resultMessage.isNotEmpty()) {
+                        Log.d("MENSAJE", resultMessage)
+                        Snackbar.make(requireActivity().findViewById(android.R.id.content), resultMessage, Snackbar.LENGTH_LONG).show()
+                    }
+                }
+            }
+        }
+
+
     }
     private fun showEditDialog(listId: Int) {
         val input = EditText(context).apply {
@@ -90,7 +105,7 @@ class PersonalListFragment : Fragment() {
             .setView(input)
             .setPositiveButton("Editar") { dialog, _ ->
                 val newName = input.text.toString()
-                editListName(listId, newName)
+                viewModel.editListName(listId, newName)
                 dialog.dismiss()
             }
             .setNegativeButton("Cancelar") { dialog, _ ->
@@ -105,7 +120,7 @@ class PersonalListFragment : Fragment() {
             .setTitle("Confirmar eliminación")
             .setMessage("¿Estás seguro de que quieres borrar esta lista?")
             .setPositiveButton("Borrar") { dialog, _ ->
-                deleteList(listId)
+                viewModel.deleteList(listId)
                 dialog.dismiss()
             }
             .setNegativeButton("Cancelar") { dialog, _ ->
@@ -128,7 +143,7 @@ class PersonalListFragment : Fragment() {
             .setView(input)
             .setPositiveButton("Crear") { dialog, _ ->
                 val newName = input.text.toString()
-                createList(newName)
+                viewModel.createList(newName)
                 dialog.dismiss()
             }
             .setNegativeButton("Cancelar") { dialog, _ ->
@@ -137,20 +152,12 @@ class PersonalListFragment : Fragment() {
             .create()
         dialog.show()
     }
-    private fun createList(name: String) {
-        val newList = ListEntity(name = name)
-        CoroutineScope(Dispatchers.IO).launch {
-            repository.insertList(newList)
-        }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.resetOperationResult()
     }
-    private fun editListName(listId:Int, name: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            repository.updateListName(listId, name)
-        }
-    }
-    private fun deleteList(listId:Int) {
-        CoroutineScope(Dispatchers.IO).launch {
-            repository.deleteList(listId)
-        }
-    }
+
+
+
 }
