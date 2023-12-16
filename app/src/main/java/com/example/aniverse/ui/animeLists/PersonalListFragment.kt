@@ -79,16 +79,6 @@ class PersonalListFragment : Fragment() {
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.operationResult.collect { resultMessage ->
-                    if (resultMessage.isNotEmpty()) {
-                        Snackbar.make(requireActivity().findViewById(android.R.id.content), resultMessage, Snackbar.LENGTH_LONG).show()
-                    }
-                }
-            }
-        }
-
 
     }
     private fun showEditDialog(listId: Int) {
@@ -143,10 +133,9 @@ class PersonalListFragment : Fragment() {
             .setView(input)
             .setPositiveButton(getString(R.string.create)) { dialog, _ ->
                 val newName = input.text.toString()
-                val newList = ListEntity(name = newName)
                 viewLifecycleOwner.lifecycleScope.launch {
-                    repository.insertList(newList)
-                    Snackbar.make(requireActivity().findViewById(android.R.id.content), "Se ha creado la lista", Snackbar.LENGTH_LONG).show()
+                    viewModel.createList(newName)
+                    Snackbar.make(requireActivity().findViewById(android.R.id.content), getString(R.string.listCreated), Snackbar.LENGTH_LONG).show()
                 }
                 dialog.dismiss()
             }
@@ -157,10 +146,6 @@ class PersonalListFragment : Fragment() {
         dialog.show()
     }
 
-    override fun onStop() {
-        super.onStop()
-        viewModel.resetOperationResult()
-    }
 
 
 

@@ -44,6 +44,7 @@ class AnimeListDetailFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.fetch(args.id)
                 viewModel.uiState.collect {
+                    binding.toolbar.title = it.title
                     binding.animeImage.load(it.image_url)
                     binding.animeName.text = it.title
                 }

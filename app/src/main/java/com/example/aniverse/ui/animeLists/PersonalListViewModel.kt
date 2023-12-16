@@ -21,9 +21,6 @@ class PersonalListViewModel @Inject constructor(private val repository: AnimeRep
     val uiState: StateFlow<PersonalListUiState>
         get()=_uiState.asStateFlow()
 
-    private val _operationResult = MutableStateFlow<String>("")
-    val operationResult: StateFlow<String>
-        get() = _operationResult
 
     init {
         viewModelScope.launch {
@@ -37,24 +34,18 @@ class PersonalListViewModel @Inject constructor(private val repository: AnimeRep
         val newList = ListEntity(name = name)
         viewModelScope.launch {
             repository.insertList(newList)
-            _operationResult.value = ("Se ha creado la lista")
         }
     }
     fun editListName(listId:Int, name: String) {
         viewModelScope.launch {
             repository.updateListName(listId, name)
-            _operationResult.value = ("Se ha cambiado el nombre de la lista")
         }
     }
     fun deleteList(listId:Int) {
         viewModelScope.launch {
             repository.deleteList(listId)
-            _operationResult.value = ("Se ha borrado la lista")
         }
     }
 
-    fun resetOperationResult() {
-        _operationResult.value = ""
-    }
 
 }

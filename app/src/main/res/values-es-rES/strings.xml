@@ -15,5 +15,9 @@
     <string name="deleteList">¿Seguro que quieres borrar esta lista?</string>
     <string name="edit">Editar</string>
     <string name="editList">Editar lista</string>
+    <string name="addedAnime">El anime ha sido añadido a la lista</string>
+    <string name="alreadyAdded">El anime ya se encuentra en la lista</string>
+    <string name="listCreated">Se ha creado la lista</string>
+    <string name="listDetail">Lista de animes</string>
 
 </resources>

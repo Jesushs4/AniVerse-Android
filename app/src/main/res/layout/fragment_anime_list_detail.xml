@@ -13,7 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="?attr/colorPrimary"
-        app:title="@string/anime_details"/>
+        />
 
 
     <com.google.android.material.card.MaterialCardView

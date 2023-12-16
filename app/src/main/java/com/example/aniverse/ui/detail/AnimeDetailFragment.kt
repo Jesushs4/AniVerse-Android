@@ -64,6 +64,7 @@ class AnimeDetailFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.fetch(args.id)
                 viewModel.uiState.collect {
+                    binding.toolbar.title = it.title
                     binding.animeImage.load(it.image_url)
                     binding.animeName.text = it.title
                 }
@@ -116,9 +117,9 @@ class AnimeDetailFragment : Fragment() {
                     repeatOnLifecycle(Lifecycle.State.STARTED) {
                         try {
                             repository.insertAnimeList(AnimeListEntity(listId = it, mal_id = args.id))
-                            Snackbar.make(binding.root, "El anime ha sido añadido a la lista", Snackbar.LENGTH_LONG).show()
+                            Snackbar.make(binding.root, getString(R.string.addedAnime), Snackbar.LENGTH_LONG).show()
                         } catch (e: SQLiteConstraintException) {
-                            Snackbar.make(binding.root, "El anime ya se encuentra en la lista", Snackbar.LENGTH_LONG).show()
+                            Snackbar.make(binding.root, getString(R.string.alreadyAdded), Snackbar.LENGTH_LONG).show()
                         }
                     }
                 }

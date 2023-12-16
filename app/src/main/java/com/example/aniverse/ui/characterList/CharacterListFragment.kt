@@ -55,9 +55,10 @@ class CharacterListFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                // Opcional: Búsqueda en tiempo real mientras el usuario escribe
                 return true
             }
+
+
         })
     }
 }
