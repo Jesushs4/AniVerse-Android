@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aniverse</string>
+    <string name="anime_details">Détails de l\'anime</string>
+    <string name="add_list">Ajouter à la liste</string>
+    <string name="deleteAnimeTitle">Confirmer</string>
+    <string name="deleteAnime">Êtes-vous sûr de vouloir supprimer cet anime de la liste ?</string>
+    <string name="deleteAnimeConfirm">Supprimer</string>
+    <string name="cancel">Annuler</string>
+    <string name="selectList">Sélectionnez une liste</string>
+    <string name="createList">Créer une liste</string>
+    <string name="create">Créer</string>
+    <string name="confirmListDelete">Supprimer la liste</string>
+    <string name="delete">Supprimer</string>
+    <string name="deleteList">Êtes-vous sûr de vouloir supprimer cette liste ?</string>
+    <string name="edit">Éditer</string>
+    <string name="editList">Éditer la liste</string>
+    <string name="addedAnime">L\'anime a été ajouté à la liste</string>
+    <string name="alreadyAdded">L\'anime est déjà dans la liste</string>
+    <string name="listCreated">La liste a été créée</string>
+    <string name="listDetail">Liste des animes</string>
+    <string name="episodes">Épisodes</string>
+    <string name="status">Statut</string>
+    <string name="characters">Personnages</string>
+    <string name="lists">Listes</string>
+    <string name="search">Rechercher…</string>
+    <string name="noInternet">Pas de connexion Internet</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aniverse</string>
+    <string name="anime_details">动漫详情</string>
+    <string name="add_list">添加到列表</string>
+    <string name="deleteAnimeTitle">确认</string>
+    <string name="deleteAnime">确定要从列表中删除这部动漫吗？</string>
+    <string name="deleteAnimeConfirm">删除</string>
+    <string name="cancel">取消</string>
+    <string name="selectList">选择列表</string>
+    <string name="createList">创建列表</string>
+    <string name="create">创建</string>
+    <string name="confirmListDelete">删除列表</string>
+    <string name="delete">删除</string>
+    <string name="deleteList">确定要删除这个列表吗？</string>
+    <string name="edit">编辑</string>
+    <string name="editList">编辑列表</string>
+    <string name="addedAnime">动漫已添加到列表</string>
+    <string name="alreadyAdded">动漫已在列表中</string>
+    <string name="listCreated">列表已创建</string>
+    <string name="listDetail">动漫列表</string>
+    <string name="episodes">剧集</string>
+    <string name="status">状态</string>
+    <string name="characters">角色</string>
+    <string name="lists">列表</string>
+    <string name="search">搜索...</string>
+    <string name="noInternet">没有互联网</string>
+</resources>

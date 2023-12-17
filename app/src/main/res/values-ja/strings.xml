@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">アニバース</string>
+    <string name="anime_details">アニメの詳細</string>
+    <string name="add_list">リストに追加</string>
+    <string name="deleteAnimeTitle">確認</string>
+    <string name="deleteAnime">リストからこのアニメを削除してもよろしいですか？</string>
+    <string name="deleteAnimeConfirm">削除</string>
+    <string name="cancel">キャンセル</string>
+    <string name="selectList">リストを選択</string>
+    <string name="createList">リストを作成</string>
+    <string name="create">作成</string>
+    <string name="confirmListDelete">リストを削除</string>
+    <string name="delete">削除</string>
+    <string name="deleteList">このリストを削除してもよろしいですか？</string>
+    <string name="edit">編集</string>
+    <string name="editList">リストを編集</string>
+    <string name="addedAnime">リストにアニメを追加しました</string>
+    <string name="alreadyAdded">アニメは既にリストにあります</string>
+    <string name="listCreated">リストが作成されました</string>
+    <string name="listDetail">アニメリスト</string>
+    <string name="episodes">エピソード</string>
+    <string name="status">状態</string>
+    <string name="characters">キャラクター</string>
+    <string name="lists">リスト</string>
+    <string name="search">検索...</string>
+    <string name="noInternet">インターネット接続がありません</string>
+</resources>
