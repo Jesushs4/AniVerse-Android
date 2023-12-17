@@ -18,5 +18,12 @@
     <string name="alreadyAdded">Anime is already added in this list</string>
     <string name="listCreated">List has been created</string>
     <string name="listDetail">Anime list</string>
+    <string name="episodes">Episodes</string>
+    <string name="status">Status</string>
+    <string name="characters">Characters</string>
+    <string name="lists">Lists</string>
+    <string name="search">Search...</string>
+    <string name="noInternet">There is no internet connection</string>
+
 
 </resources>

@@ -19,5 +19,12 @@
     <string name="alreadyAdded">El anime ya se encuentra en la lista</string>
     <string name="listCreated">Se ha creado la lista</string>
     <string name="listDetail">Lista de animes</string>
+    <string name="episodes">Episodios</string>
+    <string name="status">Estado</string>
+    <string name="characters">Personajes</string>
+    <string name="lists">Listas</string>
+    <string name="search">Search...</string>
+    <string name="noInternet">No hay conexión a Internet</string>
+
 
 </resources>

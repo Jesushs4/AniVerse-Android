@@ -1,6 +1,9 @@
 package com.example.aniverse.ui.detail
 
+import android.content.Context
 import android.database.sqlite.SQLiteConstraintException
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
@@ -71,15 +74,21 @@ class AnimeDetailFragment : Fragment() {
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.fetchOpenings(args.id)
-                viewModel.themeList.collect {
-                    binding.openingsText.movementMethod = ScrollingMovementMethod()
-                    binding.openingsText.text = it
+        if (!isInternetAvailable(requireContext())) {
+            Snackbar.make(binding.root, getString(R.string.noInternet), Snackbar.LENGTH_LONG).show()
+            binding.titleOpenings.text = ""
+        } else {
+            viewLifecycleOwner.lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.fetchOpenings(args.id)
+                    viewModel.themeList.collect {
+                        binding.openingsText.movementMethod = ScrollingMovementMethod()
+                        binding.openingsText.text = it
+                    }
                 }
             }
         }
+
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -129,5 +138,13 @@ class AnimeDetailFragment : Fragment() {
 
 
         }
+
+    fun isInternetAvailable(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+        return isConnected
+    }
+
     }
 

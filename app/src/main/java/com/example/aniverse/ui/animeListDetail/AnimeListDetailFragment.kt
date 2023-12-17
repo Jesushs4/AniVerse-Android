@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
+import com.example.aniverse.R
 import com.example.aniverse.data.repository.AnimeRepository
 import com.example.aniverse.databinding.FragmentAnimeListDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,6 +48,8 @@ class AnimeListDetailFragment : Fragment() {
                     binding.toolbar.title = it.title
                     binding.animeImage.load(it.image_url)
                     binding.animeName.text = it.title
+                    binding.animeStatus.text = getString(R.string.status)+": "+ it.status
+                    binding.animeEpisodes.text = getString(R.string.episodes)+": "+it.episodes
                 }
             }
         }

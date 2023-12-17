@@ -27,6 +27,7 @@ import com.example.aniverse.databinding.FragmentPersonalListBinding
 import com.example.aniverse.ui.list.AnimeListAdapter
 import com.example.aniverse.ui.list.AnimeListFragmentDirections
 import com.example.aniverse.ui.list.AnimeListViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -90,7 +91,7 @@ class PersonalListFragment : Fragment() {
             )
         }
 
-        val dialog = AlertDialog.Builder(context)
+        val dialog = MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.editList))
             .setView(input)
             .setPositiveButton(getString(R.string.edit)) { dialog, _ ->
@@ -106,7 +107,7 @@ class PersonalListFragment : Fragment() {
     }
 
     private fun showDeleteConfirmationDialog(listId: Int) {
-        val dialog = AlertDialog.Builder(context)
+        val dialog = MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.confirmListDelete))
             .setMessage(getString(R.string.deleteList))
             .setPositiveButton(getString(R.string.delete)) { dialog, _ ->
@@ -128,7 +129,7 @@ class PersonalListFragment : Fragment() {
             )
         }
 
-        val dialog = AlertDialog.Builder(context)
+        val dialog = MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.createList))
             .setView(input)
             .setPositiveButton(getString(R.string.create)) { dialog, _ ->

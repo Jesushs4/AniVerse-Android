@@ -33,28 +33,32 @@
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp">
 
-        <ImageView
-            android:id="@+id/anime_image"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            tools:srcCompat="@tools:sample/avatars"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/anime_name"/>
+
 
         <TextView
             android:id="@+id/anime_name"
-            style="@style/TextAppearance.Material3.HeadlineLarge"
+            android:textSize="30dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:gravity="center"
             android:maxLines="2"
             android:ellipsize="end"
-            app:layout_constraintTop_toBottomOf="@id/anime_image"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/anime_image"
+/>
+
+                <ImageView
+                    android:id="@+id/anime_image"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    tools:srcCompat="@tools:sample/avatars"
+
+                    app:layout_constraintTop_toBottomOf="@id/anime_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
@@ -63,7 +67,7 @@
                     android:layout_margin="10dp"
                     android:id="@+id/textField"
                     android:hint="@string/selectList"
-                    app:layout_constraintTop_toBottomOf="@id/anime_name"
+                    app:layout_constraintTop_toBottomOf="@id/anime_image"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
 

@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.NetworkInfo
 import android.os.Bundle
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,7 @@ import com.example.aniverse.databinding.FragmentCharacterListBinding
 import com.example.aniverse.ui.list.AnimeListAdapter
 import com.example.aniverse.ui.list.AnimeListFragmentDirections
 import com.example.aniverse.ui.list.AnimeListViewModel
+import com.google.android.material.search.SearchBar
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -44,7 +46,7 @@ class CharacterListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (!isInternetAvailable(requireContext())) {
-            Snackbar.make(requireActivity().findViewById(android.R.id.content), "No hay conexión a Internet", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), getString(R.string.noInternet), Snackbar.LENGTH_LONG).show()
         } else {
             val adapter = CharacterListAdapter(requireContext())
 
@@ -59,18 +61,14 @@ class CharacterListFragment : Fragment() {
                 }
             }
 
-            binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    query?.let { viewModel.searchCharacters(it) }
-                    return true
-                }
+            binding.searchView.getEditText().setOnEditorActionListener { v, actionId, event ->
+                binding.searchBar.setText(binding.searchView.getText())
+                val searchQuery = binding.searchBar.text.toString()
+                viewModel.searchCharacters(searchQuery)
+                binding.searchView.hide()
+                false
+            }
 
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    return true
-                }
-
-
-            })
         }
 
 

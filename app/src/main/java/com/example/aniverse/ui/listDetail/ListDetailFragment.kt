@@ -22,6 +22,7 @@ import com.example.aniverse.ui.detail.AnimeDetailFragmentArgs
 import com.example.aniverse.ui.list.AnimeListAdapter
 import com.example.aniverse.ui.list.AnimeListFragmentDirections
 import com.example.aniverse.ui.list.AnimeListViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -95,7 +96,7 @@ class ListDetailFragment : Fragment() {
     }
 
     private fun showDeleteConfirmationDialog(animeId: Int) {
-        val dialog = AlertDialog.Builder(context)
+        val dialog = MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.deleteAnimeTitle))
             .setMessage(getString(R.string.deleteAnime))
             .setPositiveButton(getString(R.string.deleteAnimeConfirm)) { dialog, _ ->
